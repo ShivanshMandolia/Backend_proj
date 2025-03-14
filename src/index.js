@@ -7,7 +7,17 @@ import  dotenv from "dotenv"
 dotenv.config({
     path:'.\env'
 })
-connectDB()
+//hamne connect db async kra hai to promise return krega 
+
+connectDB().
+then(()=>{
+    app.listen(process.env.PORT||8000,()=>{
+        console.log(`Server is running at port :${process.env.PORT}`)
+    })
+})
+.catch((err)=>{
+    console.log("MONGODB connection failed",err)
+})
 
 /*
 function connectDB(){}

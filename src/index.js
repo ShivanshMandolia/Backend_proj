@@ -1,49 +1,56 @@
-import mongoose from "mongoose";
-
-import express from "express"
+// require('dotenv').config({path: './env'})
+import dotenv from "dotenv"
 import connectDB from "./db/index.js";
-//require('dotenv').config({path:'./env'})
-import  dotenv from "dotenv"
+import {app} from './app.js'
 dotenv.config({
-    path:'.\env'
+    path: './.env'
 })
-//hamne connect db async kra hai to promise return krega 
 
-connectDB().
-then(()=>{
-    app.listen(process.env.PORT||8000,()=>{
-        console.log(`Server is running at port :${process.env.PORT}`)
+
+
+connectDB()
+.then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
     })
 })
-.catch((err)=>{
-    console.log("MONGODB connection failed",err)
+.catch((err) => {
+    console.log("MONGO db connection failed !!! ", err);
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
-function connectDB(){}
+import express from "express"
+const app = express()
+( async () => {
+    try {
+        await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
+        app.on("errror", (error) => {
+            console.log("ERRR: ", error);
+            throw error
+        })
 
+        app.listen(process.env.PORT, () => {
+            console.log(`App is listening on port ${process.env.PORT}`);
+        })
 
-
-
-//more beeter approach using iffy
-/*
-const app=express()
-(async()=>{
-    try{
-       await  mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
-app.on("error",()=>{
-    console.log("error",error);
-    throw error
-})
-app.listen(process.env.PORT,()=>{
-    console.log(`App is listening on port ${
-
-    }`)
-})
-    }catch(error){
-        console.log("ERROR",error);
-        throw error
+    } catch (error) {
+        console.error("ERROR: ", error)
+        throw err
     }
-})()*/
+})()
 
-//Approach 2 diff folder mai kro kaam 
+*/
